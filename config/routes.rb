@@ -11,7 +11,7 @@ QuicknoteApi::Application.routes.draw do
     scope module: :v1, # version control
       constraints: ApiConstraints.new(version: 1, default: true) do # versioning by headers => version is set to 1 in header of request
         # We are going to list our resources here
-        resources :users, :only => [:show, :create]
+        resources :users, :only => [:show, :create, :update]
     end 
 
   end

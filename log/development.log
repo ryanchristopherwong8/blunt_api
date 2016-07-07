@@ -2806,3 +2806,31 @@ Can't verify CSRF token authenticity
   [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["last_sign_in_at", "2016-07-07 05:42:22.563364"], ["current_sign_in_at", "2016-07-07 05:42:22.563364"], ["last_sign_in_ip", "127.0.0.1/32"], ["current_sign_in_ip", "127.0.0.1/32"], ["sign_in_count", 1], ["updated_at", "2016-07-07 05:42:22.564103"], ["id", 14]]
   [1m[35m (0.4ms)[0m  COMMIT
 Completed 201 Created in 165ms (Views: 0.4ms | ActiveRecord: 2.3ms)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/users" for 127.0.0.1 at 2016-07-06 23:54:22 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::RegistrationsController#create as JSON
+  Parameters: {"user"=>{"email"=>"tesrer@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'tesrer@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["email", "tesrer@gmail.com"], ["encrypted_password", "$2a$11$ReSkZwAJ8EyRBy60zxAYSejrqhWg/ZOcCGOkRrSyzUSKjSY4GrEga"], ["created_at", "2016-07-07 06:54:22.662173"], ["updated_at", "2016-07-07 06:54:22.662173"]]
+  [1m[36m (12.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["last_sign_in_at", "2016-07-07 06:54:22.676993"], ["current_sign_in_at", "2016-07-07 06:54:22.676993"], ["last_sign_in_ip", "127.0.0.1/32"], ["current_sign_in_ip", "127.0.0.1/32"], ["sign_in_count", 1], ["updated_at", "2016-07-07 06:54:22.678107"], ["id", 15]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Completed 201 Created in 224ms (Views: 0.4ms | ActiveRecord: 18.3ms)
