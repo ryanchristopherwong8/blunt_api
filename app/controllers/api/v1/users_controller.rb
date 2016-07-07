@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+	# make sure user is authorized
+	before_action :authenticate_with_token!, only: [:update, :destroy]
   respond_to :json
 
   def create
@@ -15,18 +17,18 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-  	user = User.find(params[:id])
-	  if user.update(user_params)
-	    render json: user, status: 200, location: [:api, user]
-	  else
-	    render json: { errors: user.errors }, status: 422
-	  end
-	end
+  	# using the current_user method in autheticable.rb, get user by session token
+    user = current_user
+    if user.update(user_params)
+      render json: user, status: 200, location: [:api, user]
+    else
+      render json: { errors: user.errors }, status: 422
+    end
+  end
 
 	def destroy
-  	user = User.find(params[:id])
-  	user.destroy
-  	head 204
+  	current_user.destroy
+    head 204
 	end
 
   private

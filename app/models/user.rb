@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
     end while self.class.exists?(auth_token: auth_token)
   end
 
+   def user_signed_in?
+    current_user.present?
+  end
+
 end
