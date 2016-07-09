@@ -13,6 +13,10 @@ gem 'pg'
 gem 'devise'
 gem 'devise_token_auth' # Token based authentication for Rails JSON APIs
 gem 'omniauth' # required for devise_token_auth
+gem 'rails_12factor', group: :production
+
+
+ruby "2.3.0"
 
 
 
