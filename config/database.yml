@@ -6,7 +6,7 @@ default: &default
 development:
   adapter: postgresql
   host: localhost
-  database: QuickNoteDev
+  database: Blunt_Dev
   username: ryanwong
 
 # Warning: The database defined as "test" will be erased and
@@ -14,8 +14,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: QuickNote_test
+  database: Blunt_Test
 
 production:
   <<: *default
-  database: QuickNote_production
+  database: Blunt_Production

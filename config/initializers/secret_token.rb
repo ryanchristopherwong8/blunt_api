@@ -16,4 +16,4 @@
 # Using secret_token for rails3 compatibility. Change to secret_key_base
 # to avoid deprecation warning.
 # Can be safely removed in a rails3 api-only application.
-QuicknoteApi::Application.config.secret_token = 'ceb7f0a4745a3b8a3cbebef60c2fadcdc7900dcbf04e8173e1dfeb00e64193510b3639da408c23019d1ab2df529c692dceae9881a148cee25532daf01fec1262'
+BluntApi::Application.config.secret_token = 'ceb7f0a4745a3b8a3cbebef60c2fadcdc7900dcbf04e8173e1dfeb00e64193510b3639da408c23019d1ab2df529c692dceae9881a148cee25532daf01fec1262'

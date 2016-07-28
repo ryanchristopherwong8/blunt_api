@@ -1,7 +1,7 @@
 
 require 'api_constraints'
 
-QuicknoteApi::Application.routes.draw do
+BluntApi::Application.routes.draw do
   devise_for :users, defaults: { format: :json}
   # Api definition
   # Rails will automatically map that namespace to a directory matching the name under the controllers folder
