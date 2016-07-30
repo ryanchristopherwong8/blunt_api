@@ -3966,3 +3966,69 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 
+
+
+Started POST "/facebook/" for 127.0.0.1 at 2016-07-30 02:05:11 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::FacebookController#create as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBALhQZCeyB3ad6fxVgf1b4vK5j6r3Xkw61mGHivMHt2iPmQBHbwzZBkssnxlFlQHcc6IxwWncqZAhFyCMr5QxjhuG43YWEtaZBIOrmkJ0PXFvitKZAbFZAKXu8sgEK4COm4IgcqeeUd7z7XFe5gjmZAcCqd9WUaVxzf2YZBZBsJbDx"}}
+Can't verify CSRF token authenticity
+Completed 500 Internal Server Error in 611ms (ActiveRecord: 0.0ms)
+
+NoMethodError (undefined method `403_url' for #<Api::V1::FacebookController:0x007fd8835d9888>):
+  app/controllers/api/v1/facebook_controller.rb:18:in `create'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (64.3ms)
+
+
+Started POST "/facebook/" for 127.0.0.1 at 2016-07-30 02:14:18 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::FacebookController#create as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBALhQZCeyB3ad6fxVgf1b4vK5j6r3Xkw61mGHivMHt2iPmQBHbwzZBkssnxlFlQHcc6IxwWncqZAhFyCMr5QxjhuG43YWEtaZBIOrmkJ0PXFvitKZAbFZAKXu8sgEK4COm4IgcqeeUd7z7XFe5gjmZAcCqd9WUaVxzf2YZBZBsJbDx"}}
+Can't verify CSRF token authenticity
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 0.0ms)
+
+ArgumentError (Nil location provided. Can't build URI.):
+  app/controllers/api/v1/facebook_controller.rb:18:in `create'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (64.1ms)
+
+
+Started POST "/facebook/" for 127.0.0.1 at 2016-07-30 02:18:12 -0700
+Processing by Api::V1::FacebookController#create as JSON
+  Parameters: {"facebook"=>{"token"=>"EAACEdEose0cBAIf3KxjYcZBkjBJsMZAn1okbwjBsZCNZCiSankVBiuIkIlbONMH5ArwlDQfzcHJo5QKHZAg8WcgvLsBzaWobiwYaa5ShZBpwrWV49ZAuldpukZBcMFXEQ5laQ6EHL3vQrg0MRr6wodnUP75tjzlTdVzT3O2J50sjXgZDZD"}}
+Can't verify CSRF token authenticity
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.0ms)
+
+ArgumentError (Nil location provided. Can't build URI.):
+  app/controllers/api/v1/facebook_controller.rb:18:in `create'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (62.7ms)
+
+
+Started POST "/facebook/" for 127.0.0.1 at 2016-07-30 02:20:22 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::FacebookController#create as JSON
+  Parameters: {"facebook"=>{"token"=>"EAACEdEose0cBAIf3KxjYcZBkjBJsMZAn1okbwjBsZCNZCiSankVBiuIkIlbONMH5ArwlDQfzcHJo5QKHZAg8WcgvLsBzaWobiwYaa5ShZBpwrWV49ZAuldpukZBcMFXEQ5laQ6EHL3vQrg0MRr6wodnUP75tjzlTdVzT3O2J50sjXgZDZD"}}
+Can't verify CSRF token authenticity
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/facebook/" for 127.0.0.1 at 2016-07-30 02:22:55 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::FacebookController#create as JSON
+  Parameters: {"facebook"=>{"token"=>"EAACEdEose0cBAIf3KxjYcZBkjBJsMZAn1okbwjBsZCNZCiSankVBiuIkIlbONMH5ArwlDQfzcHJo5QKHZAg8WcgvLsBzaWobiwYaa5ShZBpwrWV49ZAuldpukZBcMFXEQ5laQ6EHL3vQrg0MRr6wodnUP75tjzlTdVzT3O2J50sjXgZDZD"}}
+Can't verify CSRF token authenticity
+Completed 200 OK in 253ms (Views: 0.7ms | ActiveRecord: 0.0ms)

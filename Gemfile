@@ -9,8 +9,10 @@ gem 'spring', :group => :development
 
 
 gem 'pg'
+gem 'unicorn'
 
 gem 'devise'
+gem "koala", "~> 2.2"
 gem 'rails_12factor', group: :production
 
 
