@@ -1,5 +1,5 @@
 require 'open-uri'
-class Api::V1::FacebookLoginController < ApplicationController
+class Api::V1::FacebookController < ApplicationController
   def create
   	# get facebook_token from body of request
   	facebook_token = params[:facebook][:token]
