@@ -3,7 +3,6 @@ require 'api_constraints'
 
 BluntApi::Application.routes.draw do
   
-
   # Api definition
   # Rails will automatically map that namespace to a directory matching the name under the controllers folder
   namespace :api, defaults: { format: :json }, path: '/' do # has to have api. in the front, which has a path option set to root in relation to subdomain
@@ -15,7 +14,9 @@ BluntApi::Application.routes.draw do
         resources :users, :only => [:show, :create, :update, :destroy]
         # handles the sign in(POST) and sign out(DELETE) 
         resources :sessions, :only => [:create, :destroy]
-        resources :facebook, :only =>[:create]
+
+        # handles sign in from facebook
+        match "users/facebook/login", to: 'users#facebook_login', via: [:post]
     end 
 
   end

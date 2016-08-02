@@ -4530,3 +4530,17 @@ Can't verify CSRF token authenticity
   [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "xFHbeS-vxxx15BZrfi64"]]
   [1m[36m (12.1ms)[0m  [1mCOMMIT[0m
 Completed 200 OK in 679ms (Views: 0.5ms | ActiveRecord: 16.7ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-02 01:12:27 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBANMelHIOnzZBTX3tGVT4HmRWSt0K7fkGtkGvdvn8aHHJDmxbYiNPLYZAKOL56v1mbgKtmZB0Y4KjI8u25nGB8Lp8EZBYkqq5JpwjkV49LXRAskkT044Mh49lggDKR0NYahw063IaAHF4JZAy5ZAtlrJ6SXqJh2rF2pEIMucamZB"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "q1wA8zZxzZpcCx6cLGmN"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'q1wA8zZxzZpcCx6cLGmN' AND "users"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "q1wA8zZxzZpcCx6cLGmN"], ["id", 4]]
+  [1m[36m (11.9ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 311ms (Views: 0.6ms | ActiveRecord: 17.9ms)

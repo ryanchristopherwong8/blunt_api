@@ -1,3 +1,5 @@
+require "koala"
+
 class Api::V1::UsersController < ApplicationController
 	# make sure user is authorized
 	before_action :authenticate_with_token!, only: [:update, :destroy]
@@ -30,6 +32,18 @@ class Api::V1::UsersController < ApplicationController
   	current_user.destroy
     head 204
 	end
+
+  def facebook_login
+    facebook_token = params[:facebook][:token]
+    @facebook = Koala::Facebook::API.new(facebook_token)
+    #include facebook email
+    profile = @facebook.get_object("me?fields=email")
+    user = User.from_facebook(profile)
+    render json: user
+    # catch facebook error 
+    rescue Koala::Facebook::APIError => e # StandardError is the root class of most errors
+      render json: e
+  end
 
   private
 
