@@ -13,4 +13,17 @@ class User < ActiveRecord::Base
    def user_signed_in?
     current_user.present?
   end
+
+  def self.from_facebook(profile)
+    # find first user based on id or initialize and than create user
+    where(:facebook_id => profile["id"]).first_or_initialize.tap do |user|
+      user.provider = "facebook"
+      user.facebook_id = profile["id"]
+      user.name = profile["name"]
+      user.email = profile["email"]
+      user.generate_authentication_token!
+      user.save!
+    end
+  end
+
 end
