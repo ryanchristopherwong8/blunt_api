@@ -1,0 +1,2 @@
+class GamerProfilesController < ApplicationController
+end
