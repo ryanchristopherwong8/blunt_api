@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820015151) do
+ActiveRecord::Schema.define(version: 20160820181210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,22 +28,27 @@ ActiveRecord::Schema.define(version: 20160820015151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.integer  "minAge"
+    t.integer  "maxAge"
+    t.string   "gender"
   end
 
   add_index "seeking_profiles", ["user_id"], name: "index_seeking_profiles_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                      null: false
-    t.string   "auth_token",                    default: ""
+    t.string   "email",                                                               null: false
+    t.string   "auth_token",                                             default: ""
     t.integer  "facebook_id",         limit: 8
     t.string   "provider"
     t.string   "name"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                 default: 0,  null: false
+    t.integer  "sign_in_count",                                          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.decimal  "longitude",                     precision: 10, scale: 6
+    t.decimal  "latitude",                      precision: 10, scale: 6
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree

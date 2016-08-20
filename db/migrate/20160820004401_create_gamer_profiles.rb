@@ -5,7 +5,6 @@ class CreateGamerProfiles < ActiveRecord::Migration
       t.timestamps null: false
       t.belongs_to :user, index: true
 
-
     end
   end
 end
