@@ -5001,3 +5001,671 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 
+
+
+Started PATCH "/users/4" for 127.0.0.1 at 2016-08-20 11:27:04 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"100.1"}, "id"=>"4"}
+Can't verify CSRF token authenticity
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms)
+
+NoMethodError (undefined method `arity' for :SeekingProfile:Symbol):
+  app/models/user.rb:2:in `<class:User>'
+  app/models/user.rb:1:in `<top (required)>'
+  app/controllers/concerns/authenticable.rb:5:in `current_user'
+  app/controllers/concerns/authenticable.rb:10:in `authenticate_with_token!'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (57.8ms)
+
+
+Started PATCH "/users/4" for 127.0.0.1 at 2016-08-20 11:27:59 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"100.1"}, "id"=>"4"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "jsq_qWPWAqq3vosdsAMz"]]
+Unpermitted parameter: latitude
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'jsq_qWPWAqq3vosdsAMz' AND "users"."id" != 4) LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 65ms (Views: 3.4ms | ActiveRecord: 5.2ms)
+
+
+Started PATCH "/users/4" for 127.0.0.1 at 2016-08-20 11:28:31 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"100.1"}, "id"=>"4"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "jsq_qWPWAqq3vosdsAMz"]]
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'jsq_qWPWAqq3vosdsAMz' AND "users"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "latitude" = $1 WHERE "users"."id" = $2[0m  [["latitude", "100.1"], ["id", 4]]
+  [1m[35m (6.5ms)[0m  COMMIT
+Completed 200 OK in 58ms (Views: 3.0ms | ActiveRecord: 12.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddColumnsToSeekProfile (20160820184609)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "seek_profiles" ADD "minSeekDistance" integer[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddColumnsToSeekProfile (20160820184609)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "seek_profile" ADD "minSeekDistance" integer[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddColumnsToSeekProfile (20160820184609)
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddColumnsToSeekProfile (20160820184609)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "seeking_profiles" ADD "minSeekDistance" integer[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "seeking_profiles" ADD "maxSeekDistance" integer
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160820184609"]]
+  [1m[35m (12.0ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (2.4ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'gamer_profiles'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'seeking_profiles'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.0ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 11:52:35 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "rjupo7dCvV-2RUKAYWDj"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'rjupo7dCvV-2RUKAYWDj' AND "users"."id" != 4) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "rjupo7dCvV-2RUKAYWDj"], ["id", 4]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 574ms (Views: 0.8ms | ActiveRecord: 6.4ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:13:59 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "uD3K2y9sxQo2xEGBvGUe"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'uD3K2y9sxQo2xEGBvGUe' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "mJRsea2d62sraMJVWYzf"]]
+  [1m[36mSQL (13.3ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "mJRsea2d62sraMJVWYzf"]]
+  [1m[35m (6.5ms)[0m  COMMIT
+Completed 200 OK in 176ms (Views: 0.9ms | ActiveRecord: 25.5ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:19:58 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "C9ivrEn1p9nrUEdGMYTw"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'C9ivrEn1p9nrUEdGMYTw' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "Pry4oAbAx5Sa8g9MNKzG"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "Pry4oAbAx5Sa8g9MNKzG"]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 156ms (ActiveRecord: 6.1ms)
+
+NoMethodError (undefined method `create_profile' for #<User:0x007fd54fcd8d50>
+Did you mean?  create_GamerProfile):
+  app/models/user.rb:35:in `block in from_facebook'
+  app/models/user.rb:29:in `tap'
+  app/models/user.rb:29:in `from_facebook'
+  app/controllers/api/v1/users_controller.rb:41:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (59.5ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:20:31 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "_-2z-HF-Ld2mb7Wfkzvy"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = '_-2z-HF-Ld2mb7Wfkzvy' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "mAKAZyD2peTNQi5z8s3_"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "mAKAZyD2peTNQi5z8s3_"]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+Completed 500 Internal Server Error in 110ms (ActiveRecord: 4.4ms)
+
+NoMethodError (undefined method `create_seeking_profile' for #<User:0x007fd54ce34328>
+Did you mean?  create_SeekingProfile
+               create_SeekingProfile!):
+  app/models/user.rb:35:in `block in from_facebook'
+  app/models/user.rb:29:in `tap'
+  app/models/user.rb:29:in `from_facebook'
+  app/controllers/api/v1/users_controller.rb:41:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (52.5ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:20:52 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "ykfY37pmPZrSsjfSwPT5"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'ykfY37pmPZrSsjfSwPT5' LIMIT 1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "3hoaoJnFQVnTEkWi53hy"]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "3hoaoJnFQVnTEkWi53hy"]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 8], ["created_at", "2016-08-20 19:20:52.837928"], ["updated_at", "2016-08-20 19:20:52.837928"]]
+  [1m[36mSeekingProfile Load (6.8ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 8]]
+  [1m[35m (6.6ms)[0m  COMMIT
+Completed 200 OK in 185ms (Views: 0.9ms | ActiveRecord: 21.4ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:22:46 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "1Ev8ncRzgsJK5DaKM-3v"]]
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = '1Ev8ncRzgsJK5DaKM-3v' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "fjwxQFtxiovr1_is7iC3"]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "fjwxQFtxiovr1_is7iC3"]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 9], ["created_at", "2016-08-20 19:22:47.029689"], ["updated_at", "2016-08-20 19:22:47.029689"]]
+  [1m[36mSeekingProfile Load (0.4ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 9]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Completed 200 OK in 169ms (Views: 0.7ms | ActiveRecord: 9.7ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:46:55 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "5aewoansF4Z_tGzPxrTg"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = '5aewoansF4Z_tGzPxrTg' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "vJfeFRsnWLp9sVjCoxAy"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "vJfeFRsnWLp9sVjCoxAy"]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 10], ["created_at", "2016-08-20 19:46:56.531481"], ["updated_at", "2016-08-20 19:46:56.531481"]]
+  [1m[36mSeekingProfile Load (0.5ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 10]]
+  [1m[35m (6.5ms)[0m  COMMIT
+Completed 500 Internal Server Error in 571ms (ActiveRecord: 13.1ms)
+
+NoMethodError (undefined method `update_seeking_profile' for #<Api::V1::UsersController:0x007fd54fdc0d08>
+Did you mean?  update_SeekingProfile):
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (57.4ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:47:50 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "yVjgEoQtNzGbxPVkZs9e"]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'yVjgEoQtNzGbxPVkZs9e' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "WFhM-ZonG9K9G67hHW2A"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "WFhM-ZonG9K9G67hHW2A"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 11], ["created_at", "2016-08-20 19:47:50.937112"], ["updated_at", "2016-08-20 19:47:50.937112"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 11]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+Completed 500 Internal Server Error in 116ms (ActiveRecord: 6.8ms)
+
+ArgumentError (When assigning attributes, you must pass a hash as an argument.):
+  app/controllers/api/v1/users_controller.rb:75:in `update_SeekingProfile'
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (54.3ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:52:48 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "eoKS9B_7VXxXgWdDiw1C"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'eoKS9B_7VXxXgWdDiw1C' AND "users"."id" != 11) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2[0m  [["auth_token", "eoKS9B_7VXxXgWdDiw1C"], ["id", 11]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 11]]
+Completed 500 Internal Server Error in 116ms (ActiveRecord: 6.4ms)
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/controllers/api/v1/users_controller.rb:75:in `update_SeekingProfile'
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (53.8ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:53:10 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "xn1zfrs2xUUeDbwbmgaG"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'xn1zfrs2xUUeDbwbmgaG' AND "users"."id" != 11) LIMIT 1
+  [1m[36mSQL (0.6ms)[0m  [1mUPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2[0m  [["auth_token", "xn1zfrs2xUUeDbwbmgaG"], ["id", 11]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 11]]
+Completed 500 Internal Server Error in 126ms (ActiveRecord: 6.6ms)
+
+NoMethodError (undefined method `seekingprofile' for #<User:0x007fd54d194428>
+Did you mean?  SeekingProfile
+               SeekingProfile=):
+  app/controllers/api/v1/users_controller.rb:75:in `update_SeekingProfile'
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.2ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (52.8ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:53:23 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (1.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "Mx6pt5DWwsSxviaGjkZZ"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'Mx6pt5DWwsSxviaGjkZZ' AND "users"."id" != 11) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "Mx6pt5DWwsSxviaGjkZZ"], ["id", 11]]
+  [1m[36m (6.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 11]]
+Completed 500 Internal Server Error in 121ms (ActiveRecord: 13.3ms)
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/controllers/api/v1/users_controller.rb:75:in `update_SeekingProfile'
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (53.9ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:53:54 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "rWVFv-pDCN9MJXDtrQia"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'rWVFv-pDCN9MJXDtrQia' AND "users"."id" != 11) LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "rWVFv-pDCN9MJXDtrQia"], ["id", 11]]
+  [1m[36m (12.0ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 11]]
+Completed 500 Internal Server Error in 516ms (ActiveRecord: 17.9ms)
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/controllers/api/v1/users_controller.rb:75:in `update_SeekingProfile'
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (56.3ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 12:54:30 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu", "SeekingProfile"=>{"minSeekDistance"=>"20"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "vtjHxsFZvjcepJXRXeZg"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'vtjHxsFZvjcepJXRXeZg' AND "users"."id" != 11) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "vtjHxsFZvjcepJXRXeZg"], ["id", 11]]
+  [1m[36m (11.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 11]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "seeking_profiles" SET "minSeekDistance" = $1, "updated_at" = $2 WHERE "seeking_profiles"."id" = $3  [["minSeekDistance", 20], ["updated_at", "2016-08-20 19:54:31.212366"], ["id", 4]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 462ms (Views: 0.4ms | ActiveRecord: 18.5ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 13:12:22 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADaZAm2CZAWeGX2XXp0VZB7XNx8bs6ZCBsl8bcThLv5DQON78vlxrPTZAdB9yv1bPRnd9drxRUU01Vs9drtmpvh54lbZCZAv3gHW0IvkAYBw9DZB3P2ArKPZAtHASM7Fujr4ZC5doHacJWqbHy5cdrazm99OLmMj4DbQwdHuNArciu"}}
+Can't verify CSRF token authenticity
+Completed 200 OK in 463ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 13:13:11 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAVEzXB8UePO873i9pXbdKXwlc1jDqzn6ALiDiw9aXBI0hBWRx1QgKkQZCLr33rZBSVpOJJ1nZBVZB1ZAUmh7mphwM8ZBxL88dO0QKpYK4syEDMQlbaUKENs3Q64J9mVsx2zaTe58RJjbKRswZCWvhoC7ETZC1SwZBcQk5kY0QIm3"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "UXQCG-mCmVYRdnVoEEWL"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'UXQCG-mCmVYRdnVoEEWL' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "t6PLc3nC5_LE5BoWFr-G"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "t6PLc3nC5_LE5BoWFr-G"]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 12], ["created_at", "2016-08-20 20:13:11.913724"], ["updated_at", "2016-08-20 20:13:11.913724"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "gamer_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 12], ["created_at", "2016-08-20 20:13:11.924848"], ["updated_at", "2016-08-20 20:13:11.924848"]]
+  [1m[35mGamerProfile Load (0.4ms)[0m  SELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36m (6.4ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 576ms (ActiveRecord: 15.0ms)
+
+NoMethodError (undefined method `update_SeekingProfile' for #<Api::V1::UsersController:0x007fd54c907d78>
+Did you mean?  update_seeking_profile):
+  app/controllers/api/v1/users_controller.rb:43:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (12.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (67.5ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 13:13:28 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAVEzXB8UePO873i9pXbdKXwlc1jDqzn6ALiDiw9aXBI0hBWRx1QgKkQZCLr33rZBSVpOJJ1nZBVZB1ZAUmh7mphwM8ZBxL88dO0QKpYK4syEDMQlbaUKENs3Q64J9mVsx2zaTe58RJjbKRswZCWvhoC7ETZC1SwZBcQk5kY0QIm3"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '92mYKG-QQuHD2JCYmk7s' AND "users"."id" != 12) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "92mYKG-QQuHD2JCYmk7s"], ["id", 12]]
+  [1m[36m (6.3ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 102ms (Views: 0.5ms | ActiveRecord: 10.2ms)
+
+
+Started PATCH "/users/12/seeking_profile" for 127.0.0.1 at 2016-08-20 13:16:30 -0700
+
+AbstractController::ActionNotFound (The action 'update_seeking_profile' could not be found for Api::V1::UsersController):
+  actionpack (4.2.6) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.6) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.6) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  warden (1.2.6) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.6) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.6) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:38:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (0.4ms)
+
+
+Started PATCH "/users/12/seeking_profile" for 127.0.0.1 at 2016-08-20 13:16:57 -0700
+
+ActionController::RoutingError (No route matches [PATCH] "/users/12/seeking_profile"):
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/routes/_table.html.erb (9.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (87.5ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:17:11 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"SeekingProfile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms)
+
+ArgumentError (wrong number of arguments (given 0, expected 1)):
+  app/controllers/api/v1/users_controller.rb:63:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (51.3ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:17:40 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"SeekingProfile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" IS NULL LIMIT 1
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 1.5ms)
+
+NoMethodError (undefined method `SeekingProfile' for nil:NilClass):
+  app/controllers/api/v1/users_controller.rb:65:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (50.4ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:18:54 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"SeekingProfile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 4.0ms)
+
+NameError (undefined local variable or method `seeking_profile_params' for #<Api::V1::UsersController:0x007fd54fc61b10>
+Did you mean?  seekingprofile_params):
+  app/controllers/api/v1/users_controller.rb:65:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (55.5ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:19:23 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"SeekingProfile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+Completed 400 Bad Request in 25ms (ActiveRecord: 3.8ms)
+
+ActionController::ParameterMissing (param is missing or the value is empty: seekingprofile):
+  app/controllers/api/v1/users_controller.rb:76:in `seekingprofile_params'
+  app/controllers/api/v1/users_controller.rb:65:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (50.7ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:19:36 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"seekingprofile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.4ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "seeking_profiles" SET "minSeekDistance" = $1, "maxSeekDistance" = $2, "updated_at" = $3 WHERE "seeking_profiles"."id" = $4[0m  [["minSeekDistance", 20], ["maxSeekDistance", 40], ["updated_at", "2016-08-20 20:19:36.137052"], ["id", 5]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Completed 400 Bad Request in 33ms (ActiveRecord: 6.0ms)
+
+ActionController::ParameterMissing (param is missing or the value is empty: user):
+  app/controllers/api/v1/users_controller.rb:80:in `user_params'
+  app/controllers/api/v1/users_controller.rb:66:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (50.4ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:20:08 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"seekingprofile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Completed 500 Internal Server Error in 37ms (ActiveRecord: 5.9ms)
+
+NoMethodError (undefined method `user' for #<Api::V1::UsersController:0x007fd54ce85ef8>):
+  app/controllers/api/v1/users_controller.rb:66:in `update_seekingprofile'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (55.8ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 13:23:36 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"seekingprofile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Completed 200 OK in 33ms (Views: 3.5ms | ActiveRecord: 5.0ms)

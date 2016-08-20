@@ -1,8 +1,19 @@
 class User < ActiveRecord::Base
-  has_one :GamerProfile, :SeekingProfile
+  has_one :GamerProfile
+  has_one :SeekingProfile
   validates :auth_token, uniqueness: true
   devise :rememberable, :trackable
   before_create :generate_authentication_token!
+
+  # geo kit rails, override some defaults
+  acts_as_mappable :default_units => :miles,
+                   :default_formula => :sphere,
+                   :distance_field_name => :distance,
+                   :lat_column_name => :latitude,
+                   :lng_column_name => :longitude
+
+  # auto generates Seeking Profile, Gamer Profile
+  after_create :create_SeekingProfile, :create_GamerProfile
 
   def generate_authentication_token!
     begin

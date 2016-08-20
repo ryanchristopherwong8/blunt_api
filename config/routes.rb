@@ -17,8 +17,7 @@ BluntApi::Application.routes.draw do
 
         # handles sign in from facebook
         match "users/facebook/login", to: 'users#facebook_login', via: [:post]
+        match "users/:id/seekingprofile", to: 'users#update_seekingprofile', via: [:patch]
     end 
-
   end
-
 end
