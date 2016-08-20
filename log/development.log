@@ -5669,3 +5669,699 @@ Can't verify CSRF token authenticity
   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
   [1m[35m (0.2ms)[0m  COMMIT
 Completed 200 OK in 33ms (Views: 3.5ms | ActiveRecord: 5.0ms)
+
+
+Started PATCH "/users/12/seekingprofile" for 127.0.0.1 at 2016-08-20 14:21:46 -0700
+Processing by Api::V1::UsersController#update_seekingprofile as JSON
+  Parameters: {"seekingprofile"=>{"minSeekDistance"=>"20", "maxSeekDistance"=>"40"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Completed 200 OK in 31ms (Views: 3.1ms | ActiveRecord: 4.9ms)
+
+
+Started PATCH "/users/12/" for 127.0.0.1 at 2016-08-20 14:24:14 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"48", "longitute"=>"-122"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+Unpermitted parameter: longitute
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '92mYKG-QQuHD2JCYmk7s' AND "users"."id" != 12) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "latitude" = $1 WHERE "users"."id" = $2  [["latitude", "48.0"], ["id", 12]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 25ms (Views: 2.1ms | ActiveRecord: 5.2ms)
+
+
+Started PATCH "/users/12/" for 127.0.0.1 at 2016-08-20 14:24:29 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"48", "longitude"=>"-122"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '92mYKG-QQuHD2JCYmk7s' AND "users"."id" != 12) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "longitude" = $1 WHERE "users"."id" = $2  [["longitude", "-122.0"], ["id", 12]]
+  [1m[36m (6.3ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 31ms (Views: 1.3ms | ActiveRecord: 9.9ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 14:25:11 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAKpNxNACIF5dyiiOXv4575RwA81wTbtPmoNvKufRXCJmExzRaCLetIgXd1Jt9Ea0LOx8x0fHaaoYObzQxmwYZA8ZAz5lwboL9VmmwNtc893mb7ohy5hSpa2jLMV4T10ZAZAHZCpqhowj2VjB9oHgJZBKTrokt3CdPqhuU6ESSL"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 101575160296455]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "y9E2Ee_i7QuMyV8eU2Ch"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'y9E2Ee_i7QuMyV8eU2Ch' LIMIT 1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "NZMkSRyyxgu-xboxbNgK"]]
+  [1m[36mSQL (12.6ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "auth_token") VALUES ($1, $2, $3) RETURNING "id"[0m  [["facebook_id", 101575160296455], ["provider", "facebook"], ["auth_token", "NZMkSRyyxgu-xboxbNgK"]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 788ms (ActiveRecord: 14.8ms)
+
+ActiveRecord::StatementInvalid (PG::NotNullViolation: ERROR:  null value in column "email" violates not-null constraint
+DETAIL:  Failing row contains (13, null, NZMkSRyyxgu-xboxbNgK, 101575160296455, facebook, null, null, 0, null, null, null, null, null, null).
+: INSERT INTO "users" ("facebook_id", "provider", "auth_token") VALUES ($1, $2, $3) RETURNING "id"):
+  app/models/user.rb:36:in `block in from_facebook'
+  app/models/user.rb:30:in `tap'
+  app/models/user.rb:30:in `from_facebook'
+  app/controllers/api/v1/users_controller.rb:41:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (7.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (58.2ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 14:27:19 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAGZAhNCZCxWzJKZB6qqvkYONCbwSjHqiLCsD9HKgYC9rFz9CNCEBb7mFBOkDM5CDcAKJs9bjijRsGVlZCb52Eij0piObqjTZCE5KlqsOa67PpgwT4n7mp0QVKeGXEYE86XCFqDybIP2Nkd2tJfZAmUxVYeasBYZALYvWzgvux3M"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 129666167480970]]
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "zxsTTzsYoEf55R5V1zmA"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'zxsTTzsYoEf55R5V1zmA' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "27o7JjaSyB2SKwdj1Ks2"]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 129666167480970], ["provider", "facebook"], ["email", "rjbbwjg_sidhustein_1471728411@tfbnw.net"], ["auth_token", "27o7JjaSyB2SKwdj1Ks2"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 14], ["created_at", "2016-08-20 21:27:19.655293"], ["updated_at", "2016-08-20 21:27:19.655293"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 14]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "gamer_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 14], ["created_at", "2016-08-20 21:27:19.665375"], ["updated_at", "2016-08-20 21:27:19.665375"]]
+  [1m[35mGamerProfile Load (0.3ms)[0m  SELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1  [["user_id", 14]]
+  [1m[36m (6.3ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 115ms (Views: 0.4ms | ActiveRecord: 12.2ms)
+
+
+Started PATCH "/users/14/" for 127.0.0.1 at 2016-08-20 14:35:18 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"49", "longitude"=>"-123"}, "id"=>"14"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "27o7JjaSyB2SKwdj1Ks2"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '27o7JjaSyB2SKwdj1Ks2' AND "users"."id" != 14) LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3[0m  [["latitude", "49.0"], ["longitude", "-123.0"], ["id", 14]]
+  [1m[35m (12.8ms)[0m  COMMIT
+Completed 200 OK in 19ms (Views: 0.8ms | ActiveRecord: 14.3ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 14:36:09 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBADEfvCZCLOdrFY0Smo4Rs8saO12jpzT5p7RlsoXc4D5C7Qs6eB0ZA2QREMGZCkZC8ZCVkZAfpGGOo1Bl26vwlm56IXUnrpLsEZAIhsZCHuZCuqkQ9SBZB0x9p650py1M64AxpWMNSXFdUZAGHMoKwO9hWFeSUoOF7vLNxZAwqV71j6s7"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 115933048856961]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "xySvxr8n657gaici-EGC"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'xySvxr8n657gaici-EGC' LIMIT 1
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "DFf2tNbMGsypsrFors_y"]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 115933048856961], ["provider", "facebook"], ["email", "zxohphe_fergieson_1471728416@tfbnw.net"], ["auth_token", "DFf2tNbMGsypsrFors_y"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 15], ["created_at", "2016-08-20 21:36:09.795986"], ["updated_at", "2016-08-20 21:36:09.795986"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 15]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "gamer_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 15], ["created_at", "2016-08-20 21:36:09.805785"], ["updated_at", "2016-08-20 21:36:09.805785"]]
+  [1m[35mGamerProfile Load (0.3ms)[0m  SELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1  [["user_id", 15]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 103ms (Views: 0.4ms | ActiveRecord: 5.4ms)
+
+
+Started PATCH "/users/15/" for 127.0.0.1 at 2016-08-20 14:37:16 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"51.5", "longitude"=>"-0.128"}, "id"=>"15"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "DFf2tNbMGsypsrFors_y"]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'DFf2tNbMGsypsrFors_y' AND "users"."id" != 15) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3[0m  [["latitude", "51.5"], ["longitude", "-0.128"], ["id", 15]]
+  [1m[35m (12.8ms)[0m  COMMIT
+Completed 200 OK in 20ms (Views: 1.0ms | ActiveRecord: 14.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:39:24 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.2ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 1.8ms)
+
+NoMethodError (undefined method `each' for nil:NilClass):
+  app/controllers/api/v1/users_controller.rb:85:in `calculateShortestDistance'
+  app/controllers/api/v1/users_controller.rb:59:in `get_nearby_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (55.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:40:53 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 37ms (Views: 0.1ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:42:28 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 3.3ms)
+
+NameError (undefined local variable or method `user' for #<Api::V1::UsersController:0x007fd54cec5418>
+Did you mean?  @user):
+  app/controllers/api/v1/users_controller.rb:52:in `get_nearby_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (52.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:42:45 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.5ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 33ms (Views: 0.1ms | ActiveRecord: 5.3ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:42:52 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 3700)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 500 Internal Server Error in 49ms (ActiveRecord: 4.8ms)
+
+NoMethodError (undefined method `distance=' for #<User:0x007fd54cf066c0>
+Did you mean?  distance_to):
+  app/controllers/api/v1/users_controller.rb:88:in `block in calculateShortestDistance'
+  app/controllers/api/v1/users_controller.rb:85:in `calculateShortestDistance'
+  app/controllers/api/v1/users_controller.rb:59:in `get_nearby_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (55.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:50:03 -0700
+
+SyntaxError (/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:59: syntax error, unexpected ',', expecting =>
+...ser.find(:units => :miles,:all, :origin =>[user.latitude, us...
+...                               ^
+/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:59: syntax error, unexpected ',', expecting keyword_end
+...user.latitude, user.longitude], :within => distance)
+...                               ^):
+  app/controllers/api/v1/users_controller.rb:59: syntax error, unexpected ',', expecting =>
+  app/controllers/api/v1/users_controller.rb:59: syntax error, unexpected ',', expecting keyword_end
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (54.3ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:50:54 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.4ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" IN (NULL, NULL)
+Completed 404 Not Found in 35ms (ActiveRecord: 6.4ms)
+
+ActiveRecord::RecordNotFound (Couldn't find all Users with 'id': (all, {:origin=>[#<BigDecimal:7fd54c88dd70,'0.48E2',9(18)>, #<BigDecimal:7fd54c88d0c8,'-0.122E3',9(18)>], :within=>20}) (found 0 results, but was looking for 2)):
+  app/controllers/api/v1/users_controller.rb:59:in `get_nearby_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (54.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:55:57 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" IN (NULL, NULL)[0m
+Completed 404 Not Found in 34ms (ActiveRecord: 4.6ms)
+
+ActiveRecord::RecordNotFound (Couldn't find all Users with 'id': (all, {:origin=>[#<BigDecimal:7fd54cb7dad0,'0.48E2',9(18)>, #<BigDecimal:7fd54cb7d940,'-0.122E3',9(18)>], :within=>20}) (found 0 results, but was looking for 2)):
+  app/controllers/api/v1/users_controller.rb:59:in `get_nearby_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (9.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (59.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:56:10 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 3700)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 40ms (Views: 2.0ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:56:19 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 33ms (Views: 2.0ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:56:28 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 2000)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 30ms (Views: 1.6ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 14:57:09 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 5000)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 37ms (Views: 2.6ms | ActiveRecord: 6.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:01:26 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 80)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 34ms (Views: 1.4ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:01:33 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 100)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8377580409572781)*COS(-2.129301687433082)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8377580409572781)*SIN(-2.129301687433082)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8377580409572781)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 33ms (Views: 1.9ms | ActiveRecord: 5.9ms)
+
+
+Started PATCH "/users/14/" for 127.0.0.1 at 2016-08-20 15:04:48 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"49.228107", "longitude"=>"-123.072819"}, "id"=>"14"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "27o7JjaSyB2SKwdj1Ks2"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '27o7JjaSyB2SKwdj1Ks2' AND "users"."id" != 14) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3[0m  [["latitude", "49.228107"], ["longitude", "-123.072819"], ["id", 14]]
+  [1m[35m (12.9ms)[0m  COMMIT
+Completed 200 OK in 22ms (Views: 1.7ms | ActiveRecord: 14.5ms)
+
+
+Started PATCH "/users/12/" for 127.0.0.1 at 2016-08-20 15:05:37 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"49.248562", "longitude"=>"-123.076047"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = '92mYKG-QQuHD2JCYmk7s' AND "users"."id" != 12) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3  [["latitude", "49.248562"], ["longitude", "-123.076047"], ["id", 12]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 21ms (Views: 0.9ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:08:10 -0700
+
+AbstractController::ActionNotFound (The action 'get_nearby_users' could not be found for Api::V1::UsersController):
+  actionpack (4.2.6) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.6) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.6) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  warden (1.2.6) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.6) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.6) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (0.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:08:25 -0700
+
+SyntaxError (/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:58: syntax error, unexpected =>, expecting keyword_end
+...= User.withidistance, :units => :miles, :origin => [user.lat...
+...                               ^
+/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:58: syntax error, unexpected ')', expecting keyword_end
+...user.latitude, user.longitude]).by_distance(:origin => [user...
+...                               ^):
+  app/controllers/api/v1/users_controller.rb:58: syntax error, unexpected =>, expecting keyword_end
+  app/controllers/api/v1/users_controller.rb:58: syntax error, unexpected ')', expecting keyword_end
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.1ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (60.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:09:01 -0700
+
+AbstractController::ActionNotFound (The action 'get_nearby_users' could not be found for Api::V1::UsersController):
+  actionpack (4.2.6) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.6) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.6) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  warden (1.2.6) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.6) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.6) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (0.6ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:09:10 -0700
+
+AbstractController::ActionNotFound (The action 'get_nearby_users' could not be found for Api::V1::UsersController):
+  actionpack (4.2.6) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.6) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.6) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  warden (1.2.6) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.6) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.6) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (0.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:09:11 -0700
+
+AbstractController::ActionNotFound (The action 'get_nearby_users' could not be found for Api::V1::UsersController):
+  actionpack (4.2.6) lib/abstract_controller/base.rb:132:in `process'
+  actionview (4.2.6) lib/action_view/rendering.rb:30:in `process'
+  actionpack (4.2.6) lib/action_controller/metal.rb:196:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal/rack_delegation.rb:13:in `dispatch'
+  actionpack (4.2.6) lib/action_controller/metal.rb:237:in `block in action'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:74:in `dispatch'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:43:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/mapper.rb:49:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:43:in `block in serve'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `each'
+  actionpack (4.2.6) lib/action_dispatch/journey/router.rb:30:in `serve'
+  actionpack (4.2.6) lib/action_dispatch/routing/route_set.rb:817:in `call'
+  warden (1.2.6) lib/warden/manager.rb:35:in `block in call'
+  warden (1.2.6) lib/warden/manager.rb:34:in `catch'
+  warden (1.2.6) lib/warden/manager.rb:34:in `call'
+  rack (1.6.4) lib/rack/etag.rb:24:in `call'
+  rack (1.6.4) lib/rack/conditionalget.rb:25:in `call'
+  rack (1.6.4) lib/rack/head.rb:13:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:27:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/unknown_action.html.erb within rescues/layout (0.5ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:09:19 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 31ms (Views: 1.9ms | ActiveRecord: 5.3ms)

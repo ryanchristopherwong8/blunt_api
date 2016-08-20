@@ -47,16 +47,15 @@ class Api::V1::UsersController < ApplicationController
       render json: e
   end
 
-  def near
+  def get_nearby_users
     user = current_user
     lat = user.latitude
     long = user.longitude
-
+    distance = user.SeekingProfile.maxSeekDistance - user.SeekingProfile.minSeekDistance
     require 'json'
     lat.to_json
     long.to_json
-    users = User.within(3700, :units => :kms, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(username: params[:username])
-    calculateShortestDistance(users, lat, long)
+    @users = User.within(distance, :units => :miles, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(facebook_id: user.facebook_id)
     render :json => @users
   end
 
@@ -69,48 +68,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  private
 
+  private
     def seekingprofile_params
       params.require(:seekingprofile).permit(:minSeekDistance, :maxSeekDistance)
     end
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :latitude, :longitude)
-    end
-
-    def calculateShortestDistance(users, original_lat, original_long)
-      require 'json'
-      users.to_json
-      for user in @users
-        @new_lat = user.latitude
-        @new_long = user.longitude
-        user.distance = getShortDistance(original_lat, original_long, @new_lat, @new_long)
-      end
-      return @users 
-    end
-
-    def getShortDistance(original_lat, original_long, new_lat, new_long)
-      dtor = Math::PI/180
-      r = 6378.14*1000
-
-      rlat1 = original_lat * dtor 
-      rlong1 = original_long * dtor 
-      rlat2 = new_lat * dtor 
-      rlong2 = new_long * dtor 
-
-      dlon = rlong1 - rlong2
-      dlat = rlat1 - rlat2
-
-      a = power(Math::sin(dlat/2), 2) + Math::cos(rlat1) * Math::cos(rlat2) * power(Math::sin(dlon/2), 2)
-      c = 2 * Math::atan2(Math::sqrt(a), Math::sqrt(1-a))
-      d = r * c
-      # / 1000 for kilometers
-      return d / 1000
-    end
-
-    def power(num, pow)
-      num ** pow
     end
 
 end
