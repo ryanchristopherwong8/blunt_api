@@ -6365,3 +6365,180 @@ Processing by Api::V1::UsersController#get_nearby_users as JSON
           SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
           ASC[0m  [["facebook_id", 105840923195001]]
 Completed 200 OK in 31ms (Views: 1.9ms | ActiveRecord: 5.3ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-20 15:15:18 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBABm8aKLP3g9UqutK8MNkfGR0m1fmaAIXe3CsqlYSJl45U4eppGA5QXOpZBOyeNHAPqzDmguxvkKrXoeIGdFhtIKlag9GcaSOZBNrAoNDhLtwSNQgvT2jpPF9OYZAcHbQ4KdzdZBkde5aKRWUm6w2c9X21BEZBVO2XAqpURw6m"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 111979205919772]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "i3gCpGCZKEaD8NFxtyjk"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'i3gCpGCZKEaD8NFxtyjk' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "wSSzE3fMs3uWLq7znKM3"]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 111979205919772], ["provider", "facebook"], ["email", "ajalagp_liman_1471728408@tfbnw.net"], ["auth_token", "wSSzE3fMs3uWLq7znKM3"]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 16], ["created_at", "2016-08-20 22:15:19.574441"], ["updated_at", "2016-08-20 22:15:19.574441"]]
+  [1m[36mSeekingProfile Load (0.5ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 16]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "gamer_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 16], ["created_at", "2016-08-20 22:15:19.588013"], ["updated_at", "2016-08-20 22:15:19.588013"]]
+  [1m[36mGamerProfile Load (0.6ms)[0m  [1mSELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 16]]
+  [1m[35m (6.4ms)[0m  COMMIT
+Completed 200 OK in 615ms (Views: 0.7ms | ActiveRecord: 17.2ms)
+
+
+Started PATCH "/users/12/" for 127.0.0.1 at 2016-08-20 15:16:09 -0700
+Processing by Api::V1::UsersController#update as JSON
+  Parameters: {"user"=>{"latitude"=>"45.523062", "longitude"=>"-122.676482"}, "id"=>"12"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "wSSzE3fMs3uWLq7znKM3"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'wSSzE3fMs3uWLq7znKM3' AND "users"."id" != 16) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3  [["latitude", "45.523062"], ["longitude", "-122.676482"], ["id", 16]]
+  [1m[36m (12.8ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 25ms (Views: 2.7ms | ActiveRecord: 14.4ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:17:51 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.6ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 230)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 71ms (Views: 3.4ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:18:16 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.7ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 240)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 70ms (Views: 3.7ms | ActiveRecord: 8.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:18:24 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 250)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 37ms (Views: 2.0ms | ActiveRecord: 5.9ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:19:58 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 260)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 36ms (Views: 2.6ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:20:08 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 257)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 39ms (Views: 1.9ms | ActiveRecord: 9.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:20:15 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.3ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 258)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 32ms (Views: 1.7ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:20:20 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.4ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 259)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 32ms (Views: 2.1ms | ActiveRecord: 4.7ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:20:47 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[36mSeekingProfile Load (0.3ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 12]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 105840923195001]]
+Completed 200 OK in 36ms (Views: 1.6ms | ActiveRecord: 5.1ms)
+
+
+Started GET "/users" for 127.0.0.1 at 2016-08-20 15:20:48 -0700
+Processing by Api::V1::UsersController#get_nearby_users as JSON
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "92mYKG-QQuHD2JCYmk7s"]]
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 12]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 20)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8595495587725636)*COS(-2.1480822504892894)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8595495587725636)*SIN(-2.1480822504892894)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8595495587725636)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 105840923195001]]
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 1.4ms)

@@ -52,9 +52,6 @@ class Api::V1::UsersController < ApplicationController
     lat = user.latitude
     long = user.longitude
     distance = user.SeekingProfile.maxSeekDistance - user.SeekingProfile.minSeekDistance
-    require 'json'
-    lat.to_json
-    long.to_json
     @users = User.within(distance, :units => :miles, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(facebook_id: user.facebook_id)
     render :json => @users
   end
@@ -67,7 +64,6 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: user.errors }, status: 422
     end
   end
-
 
   private
     def seekingprofile_params
