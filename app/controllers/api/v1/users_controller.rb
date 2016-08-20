@@ -56,19 +56,7 @@ class Api::V1::UsersController < ApplicationController
     render :json => @users
   end
 
-  def update_seekingprofile
-    user = current_user
-    if user.SeekingProfile.update(seekingprofile_params)
-      render json: user, :include => :SeekingProfile, status: 200, location: [:api, user]
-    else
-      render json: { errors: user.errors }, status: 422
-    end
-  end
-
   private
-    def seekingprofile_params
-      params.require(:seekingprofile).permit(:minSeekDistance, :maxSeekDistance)
-    end
 
     def user_params
       params.require(:user).permit(:email, :password, :password_confirmation, :latitude, :longitude)

@@ -18,7 +18,7 @@ BluntApi::Application.routes.draw do
         # handles sign in from facebook
         match "users/facebook/login", to: 'users#facebook_login', via: [:post]
         # update seeking profile params
-        match "users/:id/seekingprofile", to: 'users#update_seekingprofile', via: [:patch]
+        match "users/:id/seekingprofile", to: 'seeking_profiles#update', via: [:patch]
         # return list of nearby gamers
         match "users", to: 'users#get_nearby_users', via: [:get]
     end 
