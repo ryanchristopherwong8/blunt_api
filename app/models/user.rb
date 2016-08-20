@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_one :GamerProfile
+  has_one :GamerProfile, :SeekingProfile
   validates :auth_token, uniqueness: true
   devise :rememberable, :trackable
   before_create :generate_authentication_token!
