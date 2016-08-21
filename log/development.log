@@ -10270,3 +10270,31 @@ ORDER BY c.conname
   [1m[36mGamerProfile Load (0.4ms)[0m  [1mSELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 99]]
   [1m[35m (0.4ms)[0m  COMMIT
   [1m[36mSQL (0.4ms)[0m  [1mUPDATE "seeking_profiles" SET "minSeekDistance" = 15, "maxSeekDistance" = 34 WHERE "seeking_profiles"."user_id" = $1[0m  [["user_id", 99]]
+
+
+Started GET "/users/0/seekingprofile" for 127.0.0.1 at 2016-08-20 17:14:22 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::SeekingProfilesController#show as JSON
+  Parameters: {"id"=>"0"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "vghz8hzxuqy-PGzpNUs8"]]
+Completed 500 Internal Server Error in 54ms (ActiveRecord: 4.2ms)
+
+NoMethodError (undefined method `seekingprofile' for #<User:0x007f8e82788648>
+Did you mean?  SeekingProfile
+               SeekingProfile=):
+  app/controllers/api/v1/seeking_profiles_controller.rb:13:in `show'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.4ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (60.5ms)
+
+
+Started GET "/users/0/seekingprofile" for 127.0.0.1 at 2016-08-20 17:14:46 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::SeekingProfilesController#show as JSON
+  Parameters: {"id"=>"0"}
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "vghz8hzxuqy-PGzpNUs8"]]
+  [1m[36mSeekingProfile Load (0.6ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 0]]
+Completed 200 OK in 75ms (Views: 1.3ms | ActiveRecord: 6.4ms)

@@ -9,6 +9,10 @@ class Api::V1::GamerProfilesController < ApplicationController
     end
   end
 
+  def show
+    respond_with current_user.GamerProfile
+  end
+
   private
     def gamerprofile_params
       params.require(:gamerprofile).permit()

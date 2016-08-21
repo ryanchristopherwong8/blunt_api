@@ -9,6 +9,10 @@ class Api::V1::SeekingProfilesController < ApplicationController
     end
   end
 
+  def show
+    respond_with current_user.SeekingProfile
+  end
+
   private
     def seekingprofile_params
       params.require(:seekingprofile).permit(:minSeekDistance, :maxSeekDistance)

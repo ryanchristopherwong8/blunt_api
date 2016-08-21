@@ -15,10 +15,12 @@ BluntApi::Application.routes.draw do
         # handles the sign in(POST) and sign out(DELETE) 
         resources :sessions, :only => [:create, :destroy]
 
+
         # handles sign in from facebook
         match "users/facebook/login", to: 'users#facebook_login', via: [:post]
         # update seeking profile params
         match "users/:id/seekingprofile", to: 'seeking_profiles#update', via: [:patch]
+        match "users/:id/seekingprofile", to: 'seeking_profiles#show', via: [:get]
         # return list of nearby gamers
         match "users", to: 'users#get_nearby_users', via: [:get]
     end 
