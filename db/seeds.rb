@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+prng = Random.new
+100.times do |i|
+   User.create(:id => "#{i}", :email => "User#{i}@gmail.com", :auth_token => "abc#{i}", 
+   	:latitude => (((-90)-90)*prng.rand + 90), :longitude => (((-180)-180)*prng.rand + 180))
+   sp = SeekingProfile.where(user_id: "#{i}")
+   sp.update_all(:minSeekDistance => rand(0...20), :maxSeekDistance => rand(30...100))
+end
