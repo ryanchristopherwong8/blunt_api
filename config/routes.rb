@@ -21,8 +21,10 @@ BluntApi::Application.routes.draw do
         # update seeking profile params
         match "users/:id/seekingprofile", to: 'seeking_profiles#update', via: [:patch]
         match "users/:id/seekingprofile", to: 'seeking_profiles#show', via: [:get]
-        # return list of nearby gamers
-        match "users", to: 'users#get_nearby_users', via: [:get]
+        # return list of nearby users
+        match "filteredusers", to: 'users#get_filtered_users', via: [:post]
+        # show gamer profile
+        match "users/:id/gamerprofile", to: 'gamer_profiles#show', via: [:get]
     end 
   end
 end

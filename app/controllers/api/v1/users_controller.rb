@@ -47,19 +47,24 @@ class Api::V1::UsersController < ApplicationController
       render json: e
   end
 
-  def get_nearby_users
+  # returns filtered users
+  # updates lat, lng of user
+  # updates maxSeekDistance and minSeekDistance of user's Seeking Profile
+  def get_filtered_users
     user = current_user
-    lat = user.latitude
-    long = user.longitude
-    distance = user.SeekingProfile.maxSeekDistance - user.SeekingProfile.minSeekDistance
-    @users = User.within(distance, :units => :miles, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(facebook_id: user.facebook_id)
+    user.update(user_params)
+    user.SeekingProfile.update(params.require(:user).permit(:seekingprofile_attributes => [:maxSeekDistance, :minSeekDistance]))
+    distance = user.SeekingProfile.maxSeekDistance - user.SeekingProfile.minSeekDistance    
+    @users = User.within(1000, :units => :miles, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(facebook_id: user.facebook_id)
     render :json => @users
   end
 
   private
 
+
+
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :latitude, :longitude)
+      params.require(:user).permit(:latitude, :longitude)
     end
 
 end
