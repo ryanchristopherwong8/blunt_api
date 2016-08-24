@@ -47,9 +47,9 @@ class Api::V1::UsersController < ApplicationController
       render json: e
   end
 
-  # returns filtered users
-  # updates lat, lng of user
-  # updates maxSeekDistance and minSeekDistance of user's Seeking Profile
+  # Purpose: returns filtered users
+  # Parameters: user object (lat,lng) and nested seeking profile with maxSeekDistance and minSeekDistance
+  # SubActions: updates user object and seeking profile
   def get_filtered_users
     user = current_user
     user.update(user_params)
@@ -60,11 +60,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
-
-
-
     def user_params
       params.require(:user).permit(:latitude, :longitude)
     end
-
 end
