@@ -2,7 +2,7 @@ require "koala"
 
 class Api::V1::UsersController < ApplicationController
 	# make sure user is authorized
-	before_action :authenticate_with_token!, only: [:update, :destroy]
+	before_action :authenticate_with_token!, only: [:update, :destroy, :get_filtered_users]
   respond_to :json
 
   def create

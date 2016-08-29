@@ -17258,3 +17258,64 @@ WHERE c.contype = 'f'
   AND t3.nspname = ANY (current_schemas(false))
 ORDER BY c.conname
 
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-29 00:04:40 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (13.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (7.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "XxxPms_r52McQ_YNNy4H"]]
+Unpermitted parameter: seekingprofile
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'XxxPms_r52McQ_YNNy4H' AND "users"."id" != 7) LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (17.0ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 7]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mUser Load (2.2ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 84)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 7]]
+Completed 200 OK in 293ms (Views: 29.4ms | ActiveRecord: 72.9ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-29 00:17:02 -0700
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "XxxPms_r52McQ_YNNy4H"]]
+Unpermitted parameter: seekingprofile
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'XxxPms_r52McQ_YNNy4H' AND "users"."id" != 7) LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 7]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 84)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 7]]
+Completed 200 OK in 39ms (Views: 1.6ms | ActiveRecord: 7.1ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-29 00:17:04 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "XxxPms_r52McQ_YNNy4H1"]]
+Filter chain halted as :authenticate_with_token! rendered or redirected
+Completed 401 Unauthorized in 25ms (Views: 0.4ms | ActiveRecord: 2.4ms)
