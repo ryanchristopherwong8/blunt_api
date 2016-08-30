@@ -17517,3 +17517,108 @@ Processing by Api::V1::UsersController#show as JSON
   Parameters: {"id"=>"2"}
   [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
 Completed 200 OK in 5ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 15:50:13 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAECbZB9KiPnGCCDuABPKyJEzgz5Mv6m64peZAqQwOZAIkhhgvwfmT2gbMjEJI31GKfSZCzBZAr60piQeHbikhFcnlEZAA7HGU2vAhNpb8Yx3wZArrLF8yJTa10mrB9hf7PyNfiV5PxGlb8vP0obZBxnD9qjKVBvlXsAA9fqiSer7"}}
+Can't verify CSRF token authenticity
+Completed 200 OK in 636ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 15:50:54 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAy0k3iDMAJOAKH4YvKfNYz6pahRzUYbNP3ubwahTC3VeJ12aICwk6LqyBvMVpr9RHVa4RpVSn6vcm4y0SZBFZAiDsvx9QnrCtNquZC2JgaQtDppaLpWfjdMGlo8xmY2wxRMhvr0CymrgNeHlIv3EhgPkywgkAhtWs3Yrwe"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "G7AxJpYGL5BVKkwYTRot"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'G7AxJpYGL5BVKkwYTRot' LIMIT 1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "ici1hinQkWgJxKWk5tWy"]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "ici1hinQkWgJxKWk5tWy"]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 462ms (ActiveRecord: 5.0ms)
+
+ActiveRecord::RecordNotUnique (PG::UniqueViolation: ERROR:  duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(2) already exists.
+: INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"):
+  app/models/user.rb:36:in `block in from_facebook'
+  app/models/user.rb:30:in `tap'
+  app/models/user.rb:30:in `from_facebook'
+  app/controllers/api/v1/users_controller.rb:32:in `facebook_login'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (7.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (62.7ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 15:51:20 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAy0k3iDMAJOAKH4YvKfNYz6pahRzUYbNP3ubwahTC3VeJ12aICwk6LqyBvMVpr9RHVa4RpVSn6vcm4y0SZBFZAiDsvx9QnrCtNquZC2JgaQtDppaLpWfjdMGlo8xmY2wxRMhvr0CymrgNeHlIv3EhgPkywgkAhtWs3Yrwe"}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["facebook_id", 105840923195001]]
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "bfGfBF5gZJ7StNNQcJjZ"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."auth_token" = 'bfGfBF5gZJ7StNNQcJjZ' LIMIT 1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "DaFx4V4TRFrifSfuBbAQ"]]
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "users" ("facebook_id", "provider", "email", "auth_token") VALUES ($1, $2, $3, $4) RETURNING "id"  [["facebook_id", 105840923195001], ["provider", "facebook"], ["email", "kprtjuf_bowersescu_1470124668@tfbnw.net"], ["auth_token", "DaFx4V4TRFrifSfuBbAQ"]]
+  [1m[36mSQL (21.1ms)[0m  [1mINSERT INTO "seeking_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["user_id", 3], ["created_at", "2016-08-30 22:51:21.349298"], ["updated_at", "2016-08-30 22:51:21.349298"]]
+  [1m[35mSeekingProfile Load (0.5ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 3]]
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "seeking_profiles" SET "user_id" = $1, "updated_at" = $2 WHERE "seeking_profiles"."id" = $3[0m  [["user_id", nil], ["updated_at", "2016-08-30 22:51:21.375074"], ["id", 4]]
+  [1m[35mSQL (13.3ms)[0m  INSERT INTO "gamer_profiles" ("user_id", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_id", 3], ["created_at", "2016-08-30 22:51:21.394834"], ["updated_at", "2016-08-30 22:51:21.394834"]]
+  [1m[36mGamerProfile Load (0.4ms)[0m  [1mSELECT  "gamer_profiles".* FROM "gamer_profiles" WHERE "gamer_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 3]]
+  [1m[35mSQL (0.4ms)[0m  UPDATE "gamer_profiles" SET "user_id" = $1, "updated_at" = $2 WHERE "gamer_profiles"."id" = $3  [["user_id", nil], ["updated_at", "2016-08-30 22:51:21.412063"], ["id", 4]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 678ms (Views: 0.5ms | ActiveRecord: 52.1ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 15:55:55 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+SyntaxError (/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:35: syntax error, unexpected =>
+    render json: => {:user => user}
+                   ^):
+  app/controllers/api/v1/users_controller.rb:35: syntax error, unexpected =>
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (55.2ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 16:01:11 -0700
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAy0k3iDMAJOAKH4YvKfNYz6pahRzUYbNP3ubwahTC3VeJ12aICwk6LqyBvMVpr9RHVa4RpVSn6vcm4y0SZBFZAiDsvx9QnrCtNquZC2JgaQtDppaLpWfjdMGlo8xmY2wxRMhvr0CymrgNeHlIv3EhgPkywgkAhtWs3Yrwe"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "FwA5wCJzz7C86LbyxKYP"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'FwA5wCJzz7C86LbyxKYP' AND "users"."id" != 3) LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "FwA5wCJzz7C86LbyxKYP"], ["id", 3]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 267ms (Views: 0.4ms | ActiveRecord: 4.7ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 16:01:30 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAy0k3iDMAJOAKH4YvKfNYz6pahRzUYbNP3ubwahTC3VeJ12aICwk6LqyBvMVpr9RHVa4RpVSn6vcm4y0SZBFZAiDsvx9QnrCtNquZC2JgaQtDppaLpWfjdMGlo8xmY2wxRMhvr0CymrgNeHlIv3EhgPkywgkAhtWs3Yrwe"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "yZ8mWC3MwZKJ-W5eAsSy"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'yZ8mWC3MwZKJ-W5eAsSy' AND "users"."id" != 3) LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "yZ8mWC3MwZKJ-W5eAsSy"], ["id", 3]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 300ms (Views: 1.4ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2016-08-30 16:05:34 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#show as JSON
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 3]]
+Completed 200 OK in 51ms (Views: 1.2ms | ActiveRecord: 3.9ms)
