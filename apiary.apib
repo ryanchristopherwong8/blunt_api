@@ -1,80 +1,61 @@
 FORMAT: 1A
-HOST: http://0.0.0.0:5000/
+HOST: http://bluntapi.herokuapp.com
 
 # blunt_api
 
-blunt_api is consumed by front end blunt application
+This API is consumed by blunt, a social application where users can meet new people over casual games.
 
 ## Users [/users]
 
-### List All Questions [GET]
+### Get a User [GET /users/{id}]
+
+returns a single user
+
++ Parameter
+
+    + id: '1' - The ID of the user
+    
++ Request    
+
+    + Headers
+    
+            Authorization: token
+        
 
 + Response 200 (application/json)
+    + Attributes
+        + User(User)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+### Facebook Login [POST /users/facebook/login]
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+This end point is a part of the OAuth 2.0 workflow for facebook login / authorization
 
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
     + Headers
+    
+            Authorization: token
+    
+    + Attributes
+    
+        + Facebook(Facebook)
 
-            Location: /questions/2
+        
++ Response 200 (application/json)
+    + Attributes
+        + User(User)
+            
+            
+# Data Structures
+## User(object)
+- id: 1 (number) - The ID of the user
+- email: test@gmail.com (string) - The email of the user
+- auth_token: xxxx123 (string) - The authentication token of the user
+- facebook_id: 1 (number) - The facebook ID of the user, retrieved from facebook
+- name: Bam Bam (string) - The name of user, retrieved from facebook
+- provider: facebook (string) - The provider of the user information
+- longitude: 1.001321 (number) - The longitude of the user
+- latitude: 2.001323 (number) - The latitude of the user
 
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+## Facebook(object)
+- token: xxx123 (string) - The facebook access token of the user
