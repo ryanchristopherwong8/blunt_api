@@ -47,7 +47,7 @@ class Api::V1::UsersController < ApplicationController
     user.SeekingProfile.update(params.require(:user).permit(:seekingprofile_attributes => [:maxSeekDistance, :minSeekDistance]))
     distance = user.SeekingProfile.maxSeekDistance - user.SeekingProfile.minSeekDistance    
     @users = User.within(distance, :units => :miles, :origin => [user.latitude, user.longitude]).by_distance(:origin => [user.latitude, user.longitude]).where.not(facebook_id: user.facebook_id)
-    render :json => { :users => @users }
+    render json: {users: @users}
   end
 
   private

@@ -17,5 +17,6 @@ gem "koala", "~> 2.2"
 gem 'rails_12factor', group: :production
 
 gem 'apiaryio'
+gem "active_model_serializers"
 
 ruby "2.3.0"
