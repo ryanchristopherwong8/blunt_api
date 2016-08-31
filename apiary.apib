@@ -44,9 +44,31 @@ This end point is a part of the OAuth 2.0 workflow for facebook login / authoriz
 + Response 200 (application/json)
     + Attributes
         + User(User)
-            
+        
+### Filtered Users [POST /filteredusers]
+
+This end point is used to return users based on search restrictions
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+    
+    + Attributes
+        + User(FilteredUsers)
+            + Seekingprofile(Seekingprofile)
+    
+        
+
+        
++ Response 200 (application/json)
+    + Attributes
+        + users (array[User])
+        
             
 # Data Structures
+
 ## User(object)
 - id: 1 (number) - The ID of the user
 - email: test@gmail.com (string) - The email of the user
@@ -57,5 +79,13 @@ This end point is a part of the OAuth 2.0 workflow for facebook login / authoriz
 - longitude: 1.001321 (number) - The longitude of the user
 - latitude: 2.001323 (number) - The latitude of the user
 
+## FilteredUsers(object)
+- longitude: 1.001321 (number) - The longitude of the user
+- latitude: 2.001323 (number) - The latitude of the user
+
 ## Facebook(object)
 - token: xxx123 (string) - The facebook access token of the user
+
+## Seekingprofile(object)
+- minSeekDistance: 123.123456 (number) - The minimum distance another user is located
+- maxSeekDistance: 123.123456 (number) - The maximum distance another user is located
