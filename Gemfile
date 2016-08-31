@@ -16,5 +16,6 @@ gem 'devise'
 gem "koala", "~> 2.2"
 gem 'rails_12factor', group: :production
 
+gem 'apiaryio'
 
 ruby "2.3.0"

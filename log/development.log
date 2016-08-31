@@ -17622,3 +17622,215 @@ Processing by Api::V1::UsersController#show as JSON
   Parameters: {"id"=>"3"}
   [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 3]]
 Completed 200 OK in 51ms (Views: 1.2ms | ActiveRecord: 3.9ms)
+
+
+Started POST "/users/facebook/login" for 127.0.0.1 at 2016-08-30 16:07:41 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#facebook_login as JSON
+  Parameters: {"facebook"=>{"token"=>"EAAOzf3Dc5dYBAAy0k3iDMAJOAKH4YvKfNYz6pahRzUYbNP3ubwahTC3VeJ12aICwk6LqyBvMVpr9RHVa4RpVSn6vcm4y0SZBFZAiDsvx9QnrCtNquZC2JgaQtDppaLpWfjdMGlo8xmY2wxRMhvr0CymrgNeHlIv3EhgPkywgkAhtWs3Yrwe"}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."facebook_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["facebook_id", 105840923195001]]
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "CpRJfxsSLSfu8kYcHyBQ"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'CpRJfxsSLSfu8kYcHyBQ' AND "users"."id" != 3) LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "users" SET "auth_token" = $1 WHERE "users"."id" = $2  [["auth_token", "CpRJfxsSLSfu8kYcHyBQ"], ["id", 3]]
+  [1m[36m (12.1ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 650ms (Views: 1.4ms | ActiveRecord: 18.1ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:08:43 -0700
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "abCVCixbK-n5KTvy-SL9"]]
+Unpermitted parameter: seekingprofile
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'abCVCixbK-n5KTvy-SL9' AND "users"."id" != 4) LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "latitude" = $1, "longitude" = $2 WHERE "users"."id" = $3[0m  [["latitude", "49.823012"], ["longitude", "-123.569835"], ["id", 4]]
+  [1m[35m (6.3ms)[0m  COMMIT
+  [1m[36mSeekingProfile Load (0.5ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 4]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 35)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 4]]
+Completed 200 OK in 50ms (Views: 3.0ms | ActiveRecord: 11.3ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:24:09 -0700
+Error occurred while parsing request parameters.
+Contents:
+
+{
+  "user": {
+ Distanc   "latitude": "49.823012",
+    "longitude": "-123.569835",
+    "seekingprofile": {
+        "maxSeekDistance": "20",
+        "minSeekDistance": "100"
+    }
+  }
+}
+
+ActionDispatch::ParamsParser::ParseError (822: unexpected token at '{
+  "user": {
+ Distanc   "latitude": "49.823012",
+    "longitude": "-123.569835",
+    "seekingprofile": {
+        "maxSeekDistance": "20",
+        "minSeekDistance": "100"
+    }
+  }
+}'):
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:53:in `rescue in parse_formatted_parameters'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:32:in `parse_formatted_parameters'
+  actionpack (4.2.6) lib/action_dispatch/middleware/params_parser.rb:23:in `call'
+  activerecord (4.2.6) lib/active_record/query_cache.rb:36:in `call'
+  activerecord (4.2.6) lib/active_record/connection_adapters/abstract/connection_pool.rb:653:in `call'
+  activerecord (4.2.6) lib/active_record/migration.rb:377:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:88:in `__run_callbacks__'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:778:in `_run_call_callbacks'
+  activesupport (4.2.6) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.6) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/tempfile_reaper.rb:15:in `call'
+  rack (1.6.4) lib/rack/lint.rb:49:in `_call'
+  rack (1.6.4) lib/rack/lint.rb:37:in `call'
+  rack (1.6.4) lib/rack/showexceptions.rb:24:in `call'
+  rack (1.6.4) lib/rack/commonlogger.rb:33:in `call'
+  rack (1.6.4) lib/rack/chunked.rb:54:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:562:in `process_client'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:658:in `worker_loop'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:508:in `spawn_missing_workers'
+  unicorn (5.1.0) lib/unicorn/http_server.rb:132:in `start'
+  unicorn (5.1.0) bin/unicorn:126:in `<top (required)>'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `load'
+  /Users/ryanwong/.rbenv/versions/2.3.0/bin/unicorn:22:in `<main>'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.3ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.8ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (75.9ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:24:19 -0700
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "abCVCixbK-n5KTvy-SL9"]]
+Unpermitted parameter: seekingprofile
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.6ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'abCVCixbK-n5KTvy-SL9' AND "users"."id" != 4) LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.7ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 4]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 35)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC[0m  [["facebook_id", 4]]
+Completed 200 OK in 82ms (Views: 4.3ms | ActiveRecord: 6.9ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:26:13 -0700
+
+SyntaxError (/Users/ryanwong/Documents/CMPT470/blunt_api/app/controllers/api/v1/users_controller.rb:50: syntax error, unexpected =>, expecting keyword_end
+    render :json => :users => @users
+                             ^):
+  app/controllers/api/v1/users_controller.rb:50: syntax error, unexpected =>, expecting keyword_end
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.5ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.6ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (53.6ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:31:16 -0700
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1  [["auth_token", "abCVCixbK-n5KTvy-SL9"]]
+Unpermitted parameter: seekingprofile
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'abCVCixbK-n5KTvy-SL9' AND "users"."id" != 4) LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mSeekingProfile Load (0.4ms)[0m  SELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1  [["user_id", 4]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Completed 500 Internal Server Error in 51ms (ActiveRecord: 5.9ms)
+
+NoMethodError (undefined method `respond_to' for #<Api::V1::UsersController:0x007fc08bd66bb0>
+Did you mean?  respond_to?
+               respond_with
+               response_body
+               response_code
+               responder
+               response_body=
+               responder?
+               responder=):
+  app/controllers/api/v1/users_controller.rb:51:in `get_filtered_users'
+
+
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.9ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.2ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.7ms)
+  Rendered /Users/ryanwong/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (67.7ms)
+
+
+Started POST "/filteredusers" for 127.0.0.1 at 2016-08-30 19:36:41 -0700
+Processing by Api::V1::UsersController#get_filtered_users as JSON
+  Parameters: {"user"=>{"latitude"=>"49.823012", "longitude"=>"-123.569835", "seekingprofile"=>{"maxSeekDistance"=>"20", "minSeekDistance"=>"100"}}}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."auth_token" = $1 LIMIT 1[0m  [["auth_token", "abCVCixbK-n5KTvy-SL9"]]
+Unpermitted parameter: seekingprofile
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE ("users"."auth_token" = 'abCVCixbK-n5KTvy-SL9' AND "users"."id" != 4) LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mSeekingProfile Load (0.7ms)[0m  [1mSELECT  "seeking_profiles".* FROM "seeking_profiles" WHERE "seeking_profiles"."user_id" = $1 LIMIT 1[0m  [["user_id", 4]]
+Unpermitted parameters: latitude, longitude, seekingprofile
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.8ms)[0m  SELECT "users".* FROM "users" WHERE ((
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          <= 35)) AND ("users"."facebook_id" != $1)  ORDER BY 
+          (ACOS(least(1,COS(0.8695756026606449)*COS(-2.1567004768961273)*COS(RADIANS(users.latitude))*COS(RADIANS(users.longitude))+
+          COS(0.8695756026606449)*SIN(-2.1567004768961273)*COS(RADIANS(users.latitude))*SIN(RADIANS(users.longitude))+
+          SIN(0.8695756026606449)*SIN(RADIANS(users.latitude))))*3963.1899999999996)
+          ASC  [["facebook_id", 4]]
+Completed 200 OK in 105ms (Views: 5.9ms | ActiveRecord: 14.4ms)

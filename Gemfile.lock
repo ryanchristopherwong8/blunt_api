@@ -37,6 +37,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    apiaryio (0.0.1)
+      launchy (>= 0.3.2)
+      rest-client (~> 1.6.1)
     arel (6.0.3)
     bcrypt (3.1.11)
     builder (3.2.2)
@@ -63,6 +66,8 @@ GEM
       addressable
       faraday
       multi_json
+    launchy (2.4.3)
+      addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -117,6 +122,8 @@ GEM
     rake (11.2.2)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     spring (1.7.2)
     sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
@@ -139,6 +146,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apiaryio
   devise
   geokit-rails
   koala (~> 2.2)
