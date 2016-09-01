@@ -19,12 +19,13 @@ returns a single user
 
     + Headers
     
+            Content-Type: application/json
             Authorization: token
         
 
 + Response 200 (application/json)
     + Attributes
-        + User(User)
+        + user(User)
 
 ### Facebook Login [POST /users/facebook/login]
 
@@ -38,12 +39,13 @@ This end point is a part of the OAuth 2.0 workflow for facebook login / authoriz
     
     + Attributes
     
-        + Facebook(Facebook)
+        + facebook(Facebook)
 
         
 + Response 200 (application/json)
     + Attributes
-        + User(User)
+        + user(User)
+        
         
 ### Filtered Users [POST /filteredusers]
 
@@ -56,8 +58,8 @@ This end point is used to return users based on search restrictions
             Authorization: token
     
     + Attributes
-        + User(FilteredUsers)
-            + Seekingprofile(Seekingprofile)
+        + user(FilteredUsers)
+            + seekingprofile(Seekingprofile)
     
         
         
@@ -65,10 +67,9 @@ This end point is used to return users based on search restrictions
     + Attributes
         + users (array)
             + (object)
-                + User(User)
+                + user(User)
             
-        
-
+            
             
 # Data Structures
 
